@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +16,14 @@
       include 'menu.php';
       ?>
       <div class="container">
-        <h1>Selamat Datang di Forum PHP</h1>
+        <h1>
+          <?php
+          if (isset($_SESSION['user'])) {
+            echo $_SESSION['user']['nama'];
+          }
+          ?>
+          Selamat Datang di Forum PHP
+        </h1>
       </div>
     <script src="boostrap/js/bootstrap.bundle.min.js"></script>
   </body>
