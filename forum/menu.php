@@ -20,7 +20,7 @@
           </li>
         <?php } else {?>
           <li class="nav-item">
-            <a class="nav-link" href="">Post Topik</a>
+            <a class="nav-link <?php echo $__menuAktif == 'tambah_topik' ? 'active' : ''?>" href="tambah-topik.php">Post Topik</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>
