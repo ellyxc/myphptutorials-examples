@@ -16,6 +16,7 @@ if (!empty($_POST)) {
     $_SESSION['user']= array(
       'id' => $user['id'],
       'nama' => $user['nama'],
+      'email' => $user['email'],
     );
 
     header("Location: index.php");

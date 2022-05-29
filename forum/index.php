@@ -27,7 +27,7 @@ session_start();
         <?php
         if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
           $pdo = require 'koneksi.php';
-          $sql = "SELECT judul, tanggal, nama FROM topik
+          $sql = "SELECT judul, tanggal, nama, email, topik.id FROM topik
           INNER JOIN users ON topik.id_user = users.id
           ORDER BY tanggal DESC";
           $query = $pdo->prepare($sql);
@@ -38,10 +38,14 @@ session_start();
         <?php
         while($data = $query->fetch()) {
         ?>
-        <figure>
+        <div class="row">
+          <div class="col-auto">
+            <img src="//www.gravatar.com/avatar/<?php echo md5($data['email']);?>?s=48&d=monsterid" class="rounded-circle"/>
+          </div>
+        <figure class="col">
           <blockquote class="blockquote">
             <p>
-              <a href="#"><?php echo htmlentities($data['judul']);?></a>
+              <a href="lihat-topik.php?id=<?php echo $data['id'];?>"><?php echo htmlentities($data['judul']);?></a>
             </p>
           </blockquote>
           <figcaption class="blockquote-footer">
@@ -49,6 +53,7 @@ session_start();
             - <?php echo date('d M Y H:i', strtotime($data['tanggal']));?>
           </figcaption>
         </figure>
+        </div>
         <?php }?>
         <?php }?>
       </div>
