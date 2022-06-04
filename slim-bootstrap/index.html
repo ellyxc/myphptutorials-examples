@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Slim Bootstrap</title>
+      </head>
+      <body>
+          <div class="container">
+              <div class="row">
+                  <div class="col-6">
+                      <form>
+                         <p>
+                             <label class="form-label">Email</label>
+                             <input type="email" class="form-control" 
+                              data-bs-toggle="popover" 
+                              data-bs-placement="top"
+                              data-bs-content="Input your valid email"
+                              data-bs-trigger="focus">
+                         </p>
+                         <p>
+                             <button type="button" class="btn btn-primary">Submit</button>
+                         </p>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <script src="dist/main.js"></script>
+      </body>
+</html>
