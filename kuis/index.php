@@ -1,3 +1,6 @@
+<?php
+require_once 'cek-akses.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,7 +9,7 @@
     <body>
         <h1>Kuis Sederhana PHP</h1>
         <h4>Dengan Pertanyaan dan Jawaban Diacak</h4>
-        <form action="hasil.php" method="POST">
+        <form action="jawab.php" method="POST">
         <?php
         try {
             $pdo = include "koneksi.php";

@@ -1,3 +1,6 @@
+<?php
+require_once 'cek-akses.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,45 +9,39 @@
     <body>
         <h1>Hasil Kuis Anda</h1>
 <?php
-$pdo = include "koneksi.php";
-if (empty($_POST['jawaban']) === false) {
-    $html = '<ol>';
-    $totalSkor = 0;
-    foreach ($_POST['jawaban'] as $idPertanyaan => $idJawaban) {
-        // Query pertanyaan
-        $query = $pdo->prepare("select * from pertanyaan where id = :id");
-        $query->execute(array("id" => $idPertanyaan));
-        $pertanyaan = $query->fetch();
-        $html .= '<li>';
-        $html .= htmlentities($pertanyaan['deskripsi']);
-        // Query jawaban
-        $query2 = $pdo->prepare("select * from jawaban where id = :id and id_pertanyaan = :id_pertanyaan");
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $pdo = require 'koneksi.php';
+    $query = $pdo->prepare("SELECT * FROM hasil where id=:id");
+    $query->execute(array('id' => $_GET['id']));
+    $hasil = $query->fetch();
+    if (!$hasil) {
+        echo '<p style="color:red">Hasil tidak ditemukan</p>';
+    } else {
+        echo '<h1>Selamat Skor Anda: '.$hasil['nilai'].'</h1>';
+        echo '<h2>Detil Hasil Anda</h2>';
+        echo '<ol>';
+        $query2 = $pdo->prepare("SELECT h.*,j.deskripsi as jawab, 
+        p.deskripsi as tanya
+        FROM hasil_jawaban as h
+        INNER JOIN jawaban as j ON h.id_jawaban = j.id
+        INNER JOIN pertanyaan as p ON j.id_pertanyaan = p.id
+        WHERE h.id_hasil=:id_hasil");
         $query2->execute(array(
-            'id' => $idJawaban,
-            'id_pertanyaan' => $idPertanyaan
+            'id_hasil' => $hasil['id']
         ));
-        $jawaban = $query2->fetch();
-        if (!$jawaban) {
-            $html .= '<p style="color:red">Salah</p>';
-        } else {
-            $html .= '<p>Jawaban: '. $jawaban['deskripsi'].'</p>';
-            if ($jawaban['benar'] == 1) {
-                $html .= '<p style="color:green">Benar</p>'; 
-                $totalSkor += $pertanyaan['skor'];
+        while($data = $query2->fetch()) {
+            echo '<li>';
+            echo htmlentities($data['tanya']);
+            echo '<p>Jawaban: '. htmlentities($data['jawab']).'</p>';
+            if ($data['benar']) {
+                echo '<p style="color:green">Benar</p>';
             } else {
-                $html .= '<p style="color:red">Salah</p>'; 
+                echo '<p style="color:red">Salah</p>';
             }
+            echo '</li>';
         }
-        $html .= '</li>';
+        echo '</ol>';
     }
-    $html .= '</ol>';
-
-    // Tampilkan Skor
-    echo '<h1>Selamat Skor Anda: '.$totalSkor.'</h1>';
-
-    // Tampilan Detail Jawaban
-    echo '<h2>Detail Hasil Anda</h2>';
-    echo $html;
 }
 ?>
     </body>
