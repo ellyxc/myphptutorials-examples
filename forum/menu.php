@@ -23,6 +23,9 @@
             <a class="nav-link <?php echo $__menuAktif == 'tambah_topik' ? 'active' : ''?>" href="tambah-topik.php">Post Topik</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link <?php echo $__menuAktif == 'profil' ? 'active' : ''?>" href="profil.php">Profil</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>
           </li>
         <?php }?>
