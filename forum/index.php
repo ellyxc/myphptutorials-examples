@@ -27,7 +27,7 @@ session_start();
         <?php
         if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
           $pdo = require 'koneksi.php';
-          $sql = "SELECT judul, tanggal, nama, email, topik.id FROM topik
+          $sql = "SELECT judul, tanggal, nama, email, topik.id, id_user FROM topik
           INNER JOIN users ON topik.id_user = users.id
           ORDER BY tanggal DESC";
           $query = $pdo->prepare($sql);
@@ -51,6 +51,12 @@ session_start();
           <figcaption class="blockquote-footer">
             Dari: <?php echo htmlentities($data['nama']);?>
             - <?php echo date('d M Y H:i', strtotime($data['tanggal']));?>
+            <?php
+            if ($_SESSION['user']['id'] == $data['id_user']) {?>
+            - <a href="hapus-topik.php?id=<?php echo $data['id'];?>"
+                onclick="return confirm('Apakah Anda yakin menghapus topik ini?')"
+                class="text-muted">Hapus</a>
+            <?php }?>
           </figcaption>
         </figure>
         </div>

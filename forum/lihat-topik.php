@@ -16,7 +16,7 @@ require_once 'cek-akses.php';
       <?php
       if (isset($_GET['id']) && !empty($_GET['id'])) {
         $pdo = require 'koneksi.php';
-        $sql = "SELECT topik.*, users.nama, users.email FROM topik 
+        $sql = "SELECT topik.*, users.nama, users.email FROM topik
         INNER JOIN users ON topik.id_user=users.id
         WHERE topik.id=:id";
         $query = $pdo->prepare($sql);
@@ -54,10 +54,19 @@ require_once 'cek-akses.php';
             </div>
             <div class="col">
               <div class="bg-light py-2 px-3 rounded">
-                <div class="row">
+                <div class="row gx-2">
                   <div class="col fw-bold">
                     <?php echo htmlentities($komentar['nama']);?>
                   </div>
+                  <?php
+                  if ($_SESSION['user']['id'] == $komentar['id_user']) {
+                  ?>
+                  <div class="col-auto">
+                    <a href="hapus-komentar.php?id=<?php echo $komentar['id'];?>"
+                    onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')"
+                    class="text-muted"><small>Hapus</small></a>
+                  </div>
+                  <?php }?>
                   <div class="col-auto">
                   <small class="text-muted"><?php echo date('d M Y H:i', strtotime($komentar['tanggal']));?></small>
                   </div>
