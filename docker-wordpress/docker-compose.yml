@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  wordpress:
+    image: wordpress:6-php8.0-apache
+    environment:
+      - WORDPRESS_DB_HOST=database
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=change_me
+      - WORDPRESS_DB_NAME=wordpress
+    ports:
+      - 8889:80
+    depends_on:
+      - database
+    volumes:
+      - ./themes:/var/www/html/wp-content/themes/
+      - ./plugins:/var/www/html/wp-content/plugins/
+
+
+  database:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: change_me
+      MYSQL_DATABASE: tutorials
+      MYSQL_USER: tutorials_user
+      MYSQL_PASSWORD: change_me
+    volumes:
+      - database:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - database
+
+volumes:
+  database:

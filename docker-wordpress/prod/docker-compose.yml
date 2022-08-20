@@ -1,0 +1,28 @@
+version: '3'
+services:
+  database:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: change_me
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: change_me
+    volumes:
+      - database:/var/lib/mysql
+      - ./:/data/
+
+  wordpress:
+    image: docker-wordpress
+    environment:
+      - WORDPRESS_DB_HOST=database
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=change_me
+      - WORDPRESS_DB_NAME=wordpress
+    ports:
+      - 8891:80
+    depends_on:
+      - database
+
+volumes:
+  database:
