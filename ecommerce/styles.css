@@ -1,0 +1,8 @@
+.gambar img {
+    width: 100%;
+}
+
+.gambar {
+    height: 180px;
+    overflow: hidden;
+}

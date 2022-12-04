@@ -1,0 +1,37 @@
+version: '3.2'
+
+services:
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8880:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_PASSWORD=change_me
+      - POSTGRES_USER=tutorials_user
+      - POSTGRES_DB=tutorials
+    volumes:
+      - postgresDb:/var/lib/postgresql/data
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8881:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=support@myphptutorials.com
+      - PGADMIN_DEFAULT_PASSWORD=change_me
+    volumes:
+      - pgadminData:/var/lib/pgadmin
+
+volumes:
+  postgresDb:
+  pgadminData:
