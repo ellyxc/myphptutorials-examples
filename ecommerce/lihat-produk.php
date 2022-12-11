@@ -70,14 +70,16 @@ if (!$produk) {
                     <h1><?php echo htmlentities($produk['nama']);?></h1>
                     <h2 class="text-success">Rp <?php echo number_format($produk['harga'], 0, ',', '.');?></h2>
                     <p>Stok: <?php echo htmlentities($produk['stok']);?></p>
+                    <form method="POST" action="tambah-keranjang.php?id=<?php echo $produk['id'];?>">
                     <div class="row g-2">
                         <div class="col-3">
                             <input type="number" value="1" name="qty" class="form-control"/>
                         </div>
                         <div class="col-9">
-                            <button class="btn btn-primary w-100">Tambah ke Keranjang</button>
+                            <button class="btn btn-primary w-100" type="submit">Tambah ke Keranjang</button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

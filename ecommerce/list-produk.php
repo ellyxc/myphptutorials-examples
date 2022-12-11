@@ -35,7 +35,8 @@ $query->execute();
                 Rp <?php echo number_format($produk['harga'], 0, ',', '.');?>
                 </div>
                 <div class="tombol">
-                    <a href="#" class="btn btn-outline-secondary btn-sm">Tambah</a>
+                    <a href="tambah-keranjang.php?id=<?php echo $produk['id'];?>"
+                    class="btn btn-outline-secondary btn-sm">Tambah</a>
                 </div>
             </div>
         </div>
