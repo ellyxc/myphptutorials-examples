@@ -23,6 +23,7 @@ if (!empty($_POST)) {
         include 'menu.php';
         ?>
         <div class="container">
+            <?php if (isset($_SESSION['keranjang'])) {?>
             <form action="" method="POST">
             <table class="table">
                 <thead>
@@ -70,9 +71,13 @@ if (!empty($_POST)) {
                 </tfoot>
             </table>
             <div class="text-end">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-secondary">Update</button>
+                <a href="simpan-order.php" class="btn btn-primary">Pesan Sekarang</a>
             </div>
             </form>
+            <?php } else {?>
+                <p>Keranjang Belanja Kosong</p>
+            <?php }?>
         </div>
     </body>
 </html>
