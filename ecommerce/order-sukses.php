@@ -20,7 +20,8 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         <div class="container">
             <div class="alert alert-success">Pesanan Tersimpan</div>
             <p>Terima kasih atas pesanan Anda. Kami akan segera proses pesanana Anda.
-                ID Pesanan Anda Adalah: <?php echo htmlentities($_GET['id']);?>
+                ID Pesanan Anda Adalah:
+                <a href="login.php?back=lihat-pesanan.php?id=<?php echo htmlentities($_GET['id']);?>"><?php echo htmlentities($_GET['id']);?></a>
             </p>
         </div>
     </body>

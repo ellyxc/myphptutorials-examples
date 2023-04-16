@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__.'/cek-akses.php';
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -12,6 +15,22 @@
             <li class="nav-item">
             <a class="nav-link" href="keranjang.php">Keranjang</a>
             </li>
+            <?php
+            if (hasLogin()) {
+            ?>
+            <?php if (hasAccess('lihatDaftarPesanan')) {?>
+            <li class="nav-item">
+            <a class="nav-link" href="pesanan.php">Pesanan</a>
+            </li>
+            <?php }?>
+            <li class="nav-item">
+            <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+            <?php } else {?>
+            <li class="nav-item">
+            <a class="nav-link" href="login.php">Login</a>
+            </li>
+            <?php }?>
         </ul>
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__.'/cek-akses.php';
+checkUserAccess('home');
+?>
 <!DOCTYPE html>
 <html>
     <head>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__.'/cek-akses.php';
 if (!empty($_POST)) {
     foreach($_POST['qty'] as $id => $jumlah) {
         $_SESSION['keranjang'][$id] = max($jumlah, 1);
@@ -71,7 +71,11 @@ if (!empty($_POST)) {
                 </tfoot>
             </table>
             <div class="text-end">
+                <?php
+                if (hasAccess('editKeranjang')) {
+                ?>
                 <button type="submit" class="btn btn-secondary">Update</button>
+                <?php }?>
                 <a href="simpan-order.php" class="btn btn-primary">Pesan Sekarang</a>
             </div>
             </form>

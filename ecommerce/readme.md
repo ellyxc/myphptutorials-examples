@@ -4,3 +4,5 @@
 - Part 2: [Halaman Detail Produk](https://youtu.be/kMCL-q5U7mc)
 - Part 3: [Halaman Shopping Cart](https://youtu.be/DPeio3ki-cM)
 - Part 4: [Simpan Pesanan Pembeli](https://youtu.be/58u3MYY34ek)
+- Part 5: [Halaman Lihat Pesanan atau Order](https://youtu.be/AvhYy8wzO2k)
+- Part 6: [Membatasi Hak Akses Dengan RBAC](https://youtu.be/CugStERwHM0)
