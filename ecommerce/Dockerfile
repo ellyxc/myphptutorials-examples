@@ -27,6 +27,15 @@ RUN apt-get update \
     && docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pgsql pdo_pgsql
 
+RUN apt-get update \
+    && apt-get install -y locales gettext\
+    && echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen \
+    && echo 'en_US ISO-8859-1' >> /etc/locale.gen \
+    && echo 'en_US.ISO-8859-15 ISO-8859-15' >> /etc/locale.gen \
+    && locale-gen \
+    && docker-php-ext-install gettext \
+    && docker-php-ext-enable gettext
+
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /var/www

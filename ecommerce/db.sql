@@ -7,34 +7,7 @@ CREATE TABLE IF NOT EXISTS public.users
     tipe character varying(20) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT users_pkey PRIMARY KEY (id),
     CONSTRAINT users_email_key UNIQUE (email)
-);
-
-CREATE TABLE IF NOT EXISTS public.produk
-(
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    kode character varying(25) COLLATE pg_catalog."default",
-    nama character varying(255) COLLATE pg_catalog."default",
-    deskripsi text COLLATE pg_catalog."default",
-    stok integer,
-    harga integer,
-    CONSTRAINT produk_pkey PRIMARY KEY (id),
-    CONSTRAINT produk_kode_key UNIQUE (kode)
-);
-
-CREATE TABLE IF NOT EXISTS public.gambar_produk
-(
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    id_produk bigint NOT NULL,
-    gambar character varying(255) COLLATE pg_catalog."default",
-    utama boolean,
-    CONSTRAINT gambar_produk_pkey PRIMARY KEY (id),
-    CONSTRAINT gambar_produk_id_produk_fkey FOREIGN KEY (id_produk)
-        REFERENCES public.produk (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        NOT VALID
-);
-
+)
 
 CREATE TABLE IF NOT EXISTS public.alamat
 (
@@ -51,7 +24,7 @@ CREATE TABLE IF NOT EXISTS public.alamat
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-);
+)
 
 CREATE TABLE IF NOT EXISTS public.pesanan
 (
@@ -64,12 +37,13 @@ CREATE TABLE IF NOT EXISTS public.pesanan
     CONSTRAINT pesanan_id_alamat_fkey FOREIGN KEY (id_alamat)
         REFERENCES public.alamat (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        ON DELETE NO ACTION
+        NOT VALID,
     CONSTRAINT pesanan_id_user_fkey FOREIGN KEY (id_user)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-);
+)
 
 CREATE TABLE IF NOT EXISTS public.item_pesanan
 (
@@ -87,5 +61,5 @@ CREATE TABLE IF NOT EXISTS public.item_pesanan
         REFERENCES public.produk (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-);
+)
 

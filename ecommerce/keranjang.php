@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/cek-akses.php';
+require_once __DIR__.'/i18n/translate.php';
 if (!empty($_POST)) {
     foreach($_POST['qty'] as $id => $jumlah) {
         $_SESSION['keranjang'][$id] = max($jumlah, 1);
@@ -45,8 +46,10 @@ if (!empty($_POST)) {
                     $queery = $pdo->prepare($sql);
                     $queery->execute($idProduk);
                     $total = 0;
+                    $jumlah = 0;
                     while($produk = $queery->fetch()) {
                         $total += $produk['harga'] * $_SESSION['keranjang'][$produk['id']];
+                        $jumlah += $_SESSION['keranjang'][$produk['id']];
                     ?>
                     <tr>
                         <td><?php echo htmlentities($produk['nama']);?></td>
@@ -64,8 +67,10 @@ if (!empty($_POST)) {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="text-end">Total</td>
-                        <td class="text-end h4 text-success">Rp <?php echo number_format($total, 0, ',', '.');?></td>
+                        <td>Jumlah</td>
+                        <td><?php _t('{0, plural, other{# Produk}}', $jumlah);?></td>
+                        <td class="text-end">Total</td>
+                        <td class="text-end h4 text-success"><?php formatCurrency($total);?></td>
                         <td></td>
                     </tr>
                 </tfoot>

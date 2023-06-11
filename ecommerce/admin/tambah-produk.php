@@ -43,6 +43,9 @@ if (!empty($_POST)) {
             move_uploaded_file($_FILES['gambar_utama']['tmp_name'], '../images/'.$filename);
         }
         foreach($_FILES['gambar']['name'] as $index => $name) {
+            if (empty($name)) {
+                continue;
+            }
             if ($_FILES['gambar']['error'][$index] != 0 || $_FILES['gambar']['size'][$index] <= 0) {
                 // echo '<pre>';
                 // print_r($_FILES['gambar']);
@@ -95,7 +98,7 @@ if (!empty($_POST)) {
                         <div class="mb-3">
                             <label class="form-label">Gambar Utama</label>
                             <input type="file" name="gambar_utama" required
-                            accept="image/png,image/jpg" class="form-control">
+                            accept="image/png,image/jpeg" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Kode</label>
