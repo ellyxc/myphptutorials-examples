@@ -34,7 +34,7 @@ include_once "cek-akses.php";
             <tbody>
                 <?php
                 $pdo = include "koneksi.php";
-                $query = $pdo->prepare("select username,nama,aktif from users");
+                $query = $pdo->prepare("SELECT username, nama, aktif FROM users");
                 $query->execute();
                 while($user = $query->fetch()) {
                 ?>

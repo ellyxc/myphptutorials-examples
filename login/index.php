@@ -3,7 +3,7 @@ include_once "cek-akses.php";
 $pdo = include "koneksi.php";
 if (!empty($_POST)) {
     if ($_POST['aksi'] == 'Tambah') {
-        $query = $pdo->prepare('insert into todo (judul, selesai, id_user) values (:judul, 0, :id_user)');
+        $query = $pdo->prepare('INSERT INTO todo (judul, selesai, id_user) VALUES (:judul, 0, :id_user)');
         $query->execute(array(
             'judul' => $_POST['judul'],
             'id_user' => $_SESSION['user']['id']
@@ -14,7 +14,7 @@ if (!empty($_POST)) {
 
     if ($_POST['aksi'] == 'Update' && !empty($_POST['todo'])) {
         foreach($_POST['todo'] as $id) {
-            $query = $pdo->prepare('update todo set selesai=1 where id=:id and id_user=:id_user');
+            $query = $pdo->prepare('UPDATE todo SET selesai=1 WHERE id=:id AND id_user=:id_user');
             $query->execute(array(
                 'id' => $id,
                 'id_user' => $_SESSION['user']['id']
@@ -50,7 +50,7 @@ if (!empty($_POST)) {
         <form method="POST" action="">
             <ul>
                 <?php
-                $query = $pdo->prepare("select * from todo where id_user=:id_user");
+                $query = $pdo->prepare("SELECT * FROM todo WHERE id_user=:id_user");
                 $query->execute(array(
                     'id_user' => $_SESSION['user']['id']
                 ));

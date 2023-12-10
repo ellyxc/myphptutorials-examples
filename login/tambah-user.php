@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     } else {
         try {
             $pdo = include "koneksi.php";
-            $query = $pdo->prepare("insert into users (username, password, salt, nama, aktif) values(:username, :password, :salt, :nama, :aktif)");
+            $query = $pdo->prepare("INSERT INTO users (username, password, salt, nama, aktif) VALUES(:username, :password, :salt, :nama, :aktif)");
             $string = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             $salt = sha1(substr($string, 0, 8).time().rand());
             $query->execute(array(
