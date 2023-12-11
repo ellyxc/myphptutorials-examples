@@ -3,7 +3,7 @@ session_start();
 $gagal = false;
 if (!empty($_POST)) {
     $pdo = include "koneksi.php";
-    $query = $pdo->prepare("select * from users where username = :username");
+    $query = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     $query->execute(array('username' => $_POST['username']));
     $user = $query->fetch();
     if (!$user) {
